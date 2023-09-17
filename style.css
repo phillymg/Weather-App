@@ -1,0 +1,14 @@
+#fivedayweek {
+    display: flex;
+}
+
+.forecastcard {
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+    margin: 10px;
+}
+
+li {
+    list-style-type: none;
+}
