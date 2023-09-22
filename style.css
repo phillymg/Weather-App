@@ -1,12 +1,49 @@
+header {
+    background-color: blue;
+    height: 100%;
+    color: white;
+    text-align: center;
+    font-size: 35px;
+}
+
+body {
+    margin: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+}
+
+
+#search-sec {
+    flex: 1
+}
+
+#search-bar {}
+
+#searchhist {}
+
+.histbtn {
+    width: 100%;
+}
+
+#allweather {
+    flex: 2;
+
+}
+
+#currentday {
+    margin-left: 10px;
+    width: 100%;
+    background-color: #ccc;
+    margin: 10px;
+
+}
+
 #fivedayweek {
     display: flex;
 }
 
 .forecastcard {
-    width: 100%;
-    height: 100%;
-    background-color: #ccc;
-    margin: 10px;
+    width: 20%;
 }
 
 li {
