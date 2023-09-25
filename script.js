@@ -23,8 +23,9 @@ function getForecast() {
         .then(function (response) {
             return response.json()
         }).then(function (data) {
-            console.log(data);
             displayForecast(data);
+            console.log(data);
+
         })
 }
 
@@ -51,14 +52,24 @@ function displayCurrent(data) {
 }
 
 function displayForecast(data) {
-    const dayId = "day1";
+    let dayCounter = 0;
 
-    document.querySelector(`#${dayId}-city-name`).textContent = city;
-    document.querySelector(`#${dayId}-date`).textContent = data.list[0].dt_txt;
-    document.querySelector(`#${dayId}-icon`).setAttribute("src", `https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png`);
-    document.querySelector(`#${dayId}-temp`).textContent = data.list[0].main.temp;
-    document.querySelector(`#${dayId}-humid`).textContent = data.list[0].main.humidity;
-    document.querySelector(`#${dayId}-wind-speed`).textContent = data.list[0].wind.speed;
+    for (let i = 0; i < data.list.length; i += 8) {
+        const dayId = "day" + (dayCounter + 1);
+
+        document.querySelector(`#${dayId}-city-name`).textContent = city;
+        document.querySelector(`#${dayId}-date`).textContent = data.list[i].dt_txt;
+        document.querySelector(`#${dayId}-icon`).setAttribute("src", `https://openweathermap.org/img/wn/${data.list[i].weather[0].icon}@2x.png`);
+        document.querySelector(`#${dayId}-temp`).textContent = data.list[i].main.temp;
+        document.querySelector(`#${dayId}-humid`).textContent = data.list[i].main.humidity;
+        document.querySelector(`#${dayId}-wind-speed`).textContent = data.list[i].wind.speed;
+
+        dayCounter++;
+
+        if (dayCounter >= 5) {
+            break;
+        }
+    }
 }
 
 
