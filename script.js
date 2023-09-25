@@ -1,7 +1,10 @@
 var APIKey = "72c3cee628c2f88baf91042dc00b51a8";
 var city;
 var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
-
+const template = document.querySelector("#weathertemplate");
+const foreTemplate = document.querySelector("#forecasttemplate");
+const currentDay = document.querySelector("#currentday");
+const fivedayweek = document.querySelector("#fivedayweek")
 // fetch(queryURL)
 
 function getCurrentWeather() {
@@ -9,17 +12,53 @@ function getCurrentWeather() {
         .then(function (response) {
             return response.json()
         }).then(function (data) {
+            // console.log(data);
+            displayCurrent(data);
+        })
+}
+function getForecast() {
+    console.log(APIKey)
+    console.log(city)
+    fetch("http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey + "&units=imperial")
+        .then(function (response) {
+            return response.json()
+        }).then(function (data) {
             console.log(data);
+            displayForecast(data);
         })
 }
 
-const formquery = document.querySelector("#searchform");
+const formQuery = document.querySelector("#searchform");
 
-formquery.addEventListener("submit", (e) => {
+formQuery.addEventListener("submit", (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
     city = data.get("search");
     getCurrentWeather();
+    getForecast();
+
 })
+
+function displayCurrent(data) {
+    const currentTemplate = template.content.cloneNode(true);
+    currentTemplate.querySelector("#today-city-name").textContent = data.name;
+    currentTemplate.querySelector("#today-date").textContent = data.dt;
+    currentTemplate.querySelector("#today-icon").setAttribute("src", `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);
+    currentTemplate.querySelector("#today-temp").textContent = data.main.temp;
+    currentTemplate.querySelector("#today-humid").textContent = data.main.humidity;
+    currentTemplate.querySelector("#today-wind-speed").textContent = data.wind.speed;
+    currentDay.append(currentTemplate);
+}
+
+function displayForecast(data) {
+    const dayId = "day1";
+
+    document.querySelector(`#${dayId}-city-name`).textContent = city;
+    document.querySelector(`#${dayId}-date`).textContent = data.list[0].dt_txt;
+    document.querySelector(`#${dayId}-icon`).setAttribute("src", `https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png`);
+    document.querySelector(`#${dayId}-temp`).textContent = data.list[0].main.temp;
+    document.querySelector(`#${dayId}-humid`).textContent = data.list[0].main.humidity;
+    document.querySelector(`#${dayId}-wind-speed`).textContent = data.list[0].wind.speed;
+}
 
 

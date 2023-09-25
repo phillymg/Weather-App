@@ -31,14 +31,17 @@
     <section id="allweather">
         <section id="currentday">
             <h2>Today's Weather</h2>
-            <ul>
-                <li id="today-city-name">city</li>
-                <li id="today-date">dte</li>
-                <li id="today-icon">icn</li>
-                <li id="today-temp">tmp</li>
-                <li id="today-humid">hmd</li>
-                <li id="today-wind-speed">wndspd</li>
-            </ul>
+            <template id="weathertemplate">
+                <ul>
+                    <li id="today-city-name">city</li>
+                    <li id="today-date">dte</li>
+                    <li><img id="today-icon" alt="">
+                    </li>
+                    <li id="today-temp">tmp</li>
+                    <li id="today-humid">hmd</li>
+                    <li id="today-wind-speed">wndspd</li>
+                </ul>
+            </template>
         </section>
         <section id="fivedayweek">
             <div class="forecastcard">
