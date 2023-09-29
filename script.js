@@ -3,8 +3,11 @@ var city;
 var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
 const template = document.querySelector("#weathertemplate");
 const foreTemplate = document.querySelector("#forecasttemplate");
+const histlist = document.querySelector("#histlist")
 const currentDay = document.querySelector("#currentday");
-const fivedayweek = document.querySelector("#fivedayweek")
+const fivedayweek = document.querySelector("#fivedayweek");
+const histbutton = document.querySelector("#histbutton");
+
 // fetch(queryURL)
 
 function getCurrentWeather() {
@@ -14,6 +17,7 @@ function getCurrentWeather() {
         }).then(function (data) {
             // console.log(data);
             displayCurrent(data);
+            saveToStorage(data.name)
         })
 }
 function getForecast() {
@@ -35,41 +39,58 @@ formQuery.addEventListener("submit", (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
     city = data.get("search");
+
     getCurrentWeather();
     getForecast();
-
 })
 
 function displayCurrent(data) {
+    currentDay.innerHTML = "";
+
     const currentTemplate = template.content.cloneNode(true);
     currentTemplate.querySelector("#today-city-name").textContent = data.name;
-    currentTemplate.querySelector("#today-date").textContent = data.dt;
+    currentTemplate.querySelector("#today-date").textContent = new Date(data.dt * 1000).toLocaleDateString(undefined, { weekday: "long", month: "short", day: "numeric" });
     currentTemplate.querySelector("#today-icon").setAttribute("src", `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);
     currentTemplate.querySelector("#today-temp").textContent = data.main.temp;
     currentTemplate.querySelector("#today-humid").textContent = data.main.humidity;
     currentTemplate.querySelector("#today-wind-speed").textContent = data.wind.speed;
     currentDay.append(currentTemplate);
+
 }
 
 function displayForecast(data) {
-    let dayCounter = 0;
-
+    fivedayweek.innerHTML = "";
     for (let i = 0; i < data.list.length; i += 8) {
-        const dayId = "day" + (dayCounter + 1);
+        const forecastCard = foreTemplate.content.cloneNode(true)
+        forecastCard.querySelector(`#forecast-city-name`).textContent = data.city.name;
+        forecastCard.querySelector(`#forecast-date`).textContent = new Date(data.list[i].dt * 1000).toLocaleDateString(undefined, { weekday: "long", month: "short", day: "numeric" });
+        forecastCard.querySelector(`#forecast-icon`).setAttribute("src", `https://openweathermap.org/img/wn/${data.list[i].weather[0].icon}@2x.png`);
+        forecastCard.querySelector(`#forecast-temp`).textContent = data.list[i].main.temp;
+        forecastCard.querySelector(`#forecast-humid`).textContent = data.list[i].main.humidity;
+        forecastCard.querySelector(`#forecast-wind-speed`).textContent = data.list[i].wind.speed;
+        fivedayweek.append(forecastCard);
+    }
+    console.log(data)
+}
 
-        document.querySelector(`#${dayId}-city-name`).textContent = city;
-        document.querySelector(`#${dayId}-date`).textContent = data.list[i].dt_txt;
-        document.querySelector(`#${dayId}-icon`).setAttribute("src", `https://openweathermap.org/img/wn/${data.list[i].weather[0].icon}@2x.png`);
-        document.querySelector(`#${dayId}-temp`).textContent = data.list[i].main.temp;
-        document.querySelector(`#${dayId}-humid`).textContent = data.list[i].main.humidity;
-        document.querySelector(`#${dayId}-wind-speed`).textContent = data.list[i].wind.speed;
-
-        dayCounter++;
-
-        if (dayCounter >= 5) {
-            break;
-        }
+function saveToStorage(cityname) {
+    const readLocalStorage = JSON.parse(localStorage.getItem("searchhistory"));
+    if (readLocalStorage === null || readLocalStorage.length === 0) {
+        localStorage.setItem("searchhistory", JSON.stringify([cityname]));
+    } else {
+        readLocalStorage.push(cityname);
+        localStorage.setItem("searchhistory", JSON.stringify(readLocalStorage));
     }
 }
 
+function localStorageHistory() {
+    const readLocalStorage = JSON.parse(localStorage.getItem("searchhistory"));
+    histlist.innerHtml = "";
+    for (let i = 0; i < readLocalStorage.length; i++) {
+        const button = histbutton.content.cloneNode(true);
+        button.querySelector('#city-button').textContent = readLocalStorage[i];
+        histlist.append(button);
+    }
+}
 
+localStorageHistory();

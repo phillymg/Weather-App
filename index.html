@@ -20,9 +20,12 @@
             </form>
         </div>
         <div id="searchhist">
-            <ul>
-                <li> <button class="histbtn" id="city1">CITY EXAMPLE 1</button>
-                </li>
+
+            <ul id="histlist">
+                <template id="histbutton">
+                    <li> <button class="histbtn" id="city-button">CITY EXAMPLE 1</button>
+                    </li>
+                </template>
             </ul>
 
 
@@ -44,61 +47,18 @@
             </template>
         </section>
         <section id="fivedayweek">
-            <div class="forecastcard">
-                <h2>day1</h2>
-                <ul>
-                    <li id="day1-city-name">city</li>
-                    <li id="day1-date">dte</li>
-                    <li id="day1-icon">icn</li>
-                    <li id="day1-temp">tmp</li>
-                    <li id="day1-humid">hmd</li>
-                    <li id="day1-wind-speed">wndspd</li>
-                </ul>
-            </div>
-            <div class="forecastcard">
-                <h2>day2</h2>
-                <ul>
-                    <li id="day2-city-name">city</li>
-                    <li id="day2-date">dte</li>
-                    <li id="day2-icon">icn</li>
-                    <li id="day2-temp">tmp</li>
-                    <li id="day2-humid">hmd</li>
-                    <li id="day2-wind-speed">wndspd</li>
-                </ul>
-            </div>
-            <div class="forecastcard">
-                <h2>day3</h2>
-                <ul>
-                    <li id="day3-city-name">city</li>
-                    <li id="day3-date">dte</li>
-                    <li id="day3-icon">icn</li>
-                    <li id="day3-temp">tmp</li>
-                    <li id="day3-humid">hmd</li>
-                    <li id="day3-wind-speed">wndspd</li>
-                </ul>
-            </div>
-            <div class="forecastcard">
-                <h2>day4</h2>
-                <ul>
-                    <li id="day4-city-name">city</li>
-                    <li id="day4-date">dte</li>
-                    <li id="day4-icon">icn</li>
-                    <li id="day4-temp">tmp</li>
-                    <li id="day4-humid">hmd</li>
-                    <li id="day4-wind-speed">wndspd</li>
-                </ul>
-            </div>
-            <div class="forecastcard">
-                <h2>day5</h2>
-                <ul>
-                    <li id="day5-city-name">city</li>
-                    <li id="day5-date">dte</li>
-                    <li id="day5-icon">icn</li>
-                    <li id="day5-temp">tmp</li>
-                    <li id="day5-humid">hmd</li>
-                    <li id="day5-wind-speed">wndspd</li>
-                </ul>
-            </div>
+            <template id="forecasttemplate">
+                <div class="forecastcard">
+                    <ul>
+                        <li id="forecast-city-name">city</li>
+                        <li id="forecast-date">dte</li>
+                        <li><img id="forecast-icon" alt=""></li>
+                        <li id="forecast-temp">tmp</li>
+                        <li id="forecast-humid">hmd</li>
+                        <li id="forecast-wind-speed">wndspd</li>
+                    </ul>
+                </div>
+            </template>
         </section>
     </section>
     <script src="script.js"></script>
