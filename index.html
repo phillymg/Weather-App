@@ -5,63 +5,77 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"> -->
     <link rel="stylesheet" href="style.css">
     <title>Weather App</title>
 </head>
 
 
 <body id="body">
-    <section id="search-sec">
-        <div id="search-bar">
-            <h2>Search for a City</h2>
-            <form id="searchform">
-                <input type="text" name="search" placeholder="Enter city name...">
-                <button>Search</button>
-            </form>
-        </div>
-        <div id="searchhist">
-
-            <ul id="histlist">
-                <template id="histbutton">
-                    <li> <button class="histbtn" id="city-button">CITY EXAMPLE 1</button>
-                    </li>
-                </template>
-            </ul>
-
-
-        </div>
-    </section>
-    <section id="allweather">
-        <section id="currentday">
-            <h2>Today's Weather</h2>
-            <template id="weathertemplate">
-                <ul>
-                    <li id="today-city-name">city</li>
-                    <li id="today-date">dte</li>
-                    <li><img id="today-icon" alt="">
-                    </li>
-                    <li id="today-temp">tmp</li>
-                    <li id="today-humid">hmd</li>
-                    <li id="today-wind-speed">wndspd</li>
-                </ul>
-            </template>
-        </section>
-        <section id="fivedayweek">
-            <template id="forecasttemplate">
-                <div class="forecastcard">
-                    <ul>
-                        <li id="forecast-city-name">city</li>
-                        <li id="forecast-date">dte</li>
-                        <li><img id="forecast-icon" alt=""></li>
-                        <li id="forecast-temp">tmp</li>
-                        <li id="forecast-humid">hmd</li>
-                        <li id="forecast-wind-speed">wndspd</li>
-                    </ul>
+    <div id="header">
+        <header>
+            <h1>Weather Dashboard</h1>
+        </header>
+    </div>
+    <div id="notheader">
+        <section id="search-sec">
+            <div>
+                <div id="search-bar">
+                    <h2>Search for a City</h2>
+                    <div id="searchformdiv">
+                        <form id="searchform">
+                            <input type="text" name="search" placeholder="Enter city name...">
+                            <button>Search</button>
+                        </form>
+                    </div>
                 </div>
-            </template>
+                <div id="searchhist">
+
+                    <ul id="histlist">
+                        <template id="histbutton">
+                            <li> <button class="histbtn" id="city-button">CITY EXAMPLE 1</button>
+                            </li>
+                        </template>
+                    </ul>
+
+
+                </div>
+            </div>
         </section>
-    </section>
-    <script src="script.js"></script>
+        <section id="allweather">
+            <section id="currentday">
+                <h2>Today's Weather</h2>
+                <template id="weathertemplate">
+                    <ul>
+                        <li id="today-city-name">city</li>
+                        <li id="today-date">dte</li>
+                        <li><img id="today-icon" alt="">
+                        </li>
+                        <li id="today-temp">tmp</li>
+                        <li id="today-humid">hmd</li>
+                        <li id="today-wind-speed">wndspd</li>
+                    </ul>
+                </template>
+            </section>
+            <h1 id="fivedaytitle">5 Day Forecast</h1>
+
+            <section id="fivedayweek">
+                <template id="forecasttemplate">
+                    <div class="forecastcard">
+                        <ul>
+                            <li id="forecast-city-name">city</li>
+                            <li id="forecast-date">dte</li>
+                            <li><img id="forecast-icon" alt=""></li>
+                            <li id="forecast-temp">tmp</li>
+                            <li id="forecast-humid">hmd</li>
+                            <li id="forecast-wind-speed">wndspd</li>
+                        </ul>
+                    </div>
+                </template>
+            </section>
+        </section>
+    </div>
 </body>
+<script src="script.js"></script>
 
 </html>
